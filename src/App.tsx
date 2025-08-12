@@ -14,7 +14,7 @@ configure({
 const url = new URL(window.location.href);
 
 function App() {
-    const peerId = usePersistentNanoId();
+    const peerId = usePersistentNanoId(url.searchParams.get('peer-id-key') ?? 'default-peer');
 
     const [state, setState] = useSharedState<'on' | 'off'>('off', {
         channel: `demo_light-switch_${url.pathname}_state`,
