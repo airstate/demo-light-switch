@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useReducer, useRef } from 'react';
 import clsx from 'clsx';
 
 export const TORCH_DIAMETER = 250;
@@ -6,6 +6,8 @@ export const TORCH_DIAMETER = 250;
 export function Darkness({ centers, isDark }: { centers: [number, number][]; isDark: boolean }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+
+    const [r, forceRender] = useReducer((x) => x + 1, 0);
 
     const centersRef = useRef(centers);
 
@@ -66,20 +68,12 @@ export function Darkness({ centers, isDark }: { centers: [number, number][]; isD
 
     useEffect(() => {
         render(centers);
-    }, [centers, render]);
+    }, [centers, r, render]);
 
     useEffect(() => {
-        const rerender = () => {
-            render(centersRef.current);
-        };
-
-        document.addEventListener('resize', rerender);
-        document.addEventListener('fullscreenchange', rerender);
-
-        return () => {
-            document.removeEventListener('resize', rerender);
-            document.removeEventListener('fullscreenchange', rerender);
-        };
+        window.addEventListener('resize', () => {
+            forceRender();
+        });
     }, []);
 
     return (
