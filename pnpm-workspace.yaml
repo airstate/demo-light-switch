@@ -1,3 +1,1 @@
-overrides:
-  '@airstate/client': link:../../../../Library/pnpm/global/5/node_modules/@airstate/client
-  '@airstate/react': link:../../../../Library/pnpm/global/5/node_modules/@airstate/react
+
