@@ -65,7 +65,7 @@ function App() {
                 }));
             }}
             className={clsx(
-                'cursor-none select-none fixed touch-none top-0 left-0 w-screen h-screen bg-white flex items-center justify-center',
+                'select-none fixed touch-none top-0 left-0 w-screen h-screen bg-white flex items-center justify-center',
             )}>
             <Overlay
                 centers={[
