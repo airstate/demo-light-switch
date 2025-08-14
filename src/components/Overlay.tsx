@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useReducer, useRef } from 'react';
 import clsx from 'clsx';
 
-export const TORCH_DIAMETER = 250;
+export const TORCH_DIAMETER = 300;
 
 export function Overlay({
     centers,
@@ -53,8 +53,8 @@ export function Overlay({
 
                 // Create a radial gradient: transparent in the center, opaque at the edge
                 const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
-                gradient.addColorStop(0, 'rgba(0,0,0,0.8)');
-                gradient.addColorStop(0.75, 'rgba(0,0,0,0.8)');
+                gradient.addColorStop(0, 'rgba(0,0,0,1)');
+                gradient.addColorStop(0.75, 'rgba(0,0,0,0.9)');
                 gradient.addColorStop(1, 'rgba(0,0,0,0)');
 
                 ctx.beginPath();
