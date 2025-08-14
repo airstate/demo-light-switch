@@ -98,15 +98,36 @@ export function Overlay({
                 return (
                     <>
                         <div
-                            style={{ left: x, top: y, background: center.color }}
-                            className={'absolute w-2 h-2 -translate-1 rounded-full'}></div>
+                            style={{ left: x, top: y, color: center.color }}
+                            className={'absolute w-2 h-2 -translate-1 rounded-full'}>
+                            <svg
+                                width="15"
+                                height="15"
+                                viewBox="0 0 57 57"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#cursor)">
+                                    <path
+                                        d="M0.827852 4.63513C0.024448 2.2776 2.27766 0.0243849 4.63519 0.827789L54.0385 17.6635C56.724 18.5787 56.7561 22.3655 54.0864 23.326L32.7942 30.9868C31.9525 31.2897 31.2899 31.9523 30.987 32.794L23.3261 54.0864C22.3656 56.7561 18.5788 56.724 17.6636 54.0384L0.827852 4.63513Z"
+                                        fill="currentcolor"
+                                    />
+                                </g>
+                                <defs>
+                                    <clipPath id="cursor">
+                                        <rect width="57" height="57" fill="white" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </div>
                         <div
                             style={{
                                 left: x,
                                 top: y,
                                 background: center.color,
                             }}
-                            className={clsx('absolute translate-2 shadow text-white text-sm px-2 py-1 text-nowrap')}>
+                            className={clsx(
+                                'absolute translate-2 shadow text-white text-sm px-4 py-1 text-nowrap rounded-full',
+                            )}>
                             {center.name}
                         </div>
                     </>

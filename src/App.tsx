@@ -3,6 +3,7 @@ import { usePersistentNanoId, useSharedPresence, useSharedState } from '@airstat
 import { Switch } from './components/Switch.tsx';
 import { Overlay } from './components/Overlay.tsx';
 import clsx from 'clsx';
+import { useRandomColor } from './hooks/random-color.mjs';
 
 if (!import.meta.env.VITE_AIRSTATE_APP_ID) {
     throw new Error('please set the VITE_AIRSTATE_APP_ID env variable when building');
@@ -21,6 +22,8 @@ function App() {
         channel: `demo_light-switch_${url.pathname}_state`,
     });
 
+    const color = useRandomColor();
+
     const {
         setState: setPresenceState,
         self,
@@ -29,8 +32,8 @@ function App() {
         peerId: peerId,
         room: `demo_light-switch_${url.pathname}_presence`,
         initialState: {
-            name: url.searchParams.get('name') ?? 'user',
-            color: url.searchParams.get('suggested-color') ?? 'hsl(255, 50%, 50%)',
+            name: url.searchParams.get('name') ?? 'USER',
+            color: color,
             pos: [2048, 2048],
         },
     });
@@ -67,29 +70,18 @@ function App() {
             className={clsx(
                 'select-none fixed touch-none top-0 left-0 w-screen h-screen bg-white flex items-center justify-center',
             )}>
-            <Overlay
-                centers={[
-                    {
-                        ...ownLight,
-                        name: 'You',
-                    },
-                    ...otherLights,
-                ]}
-                isDark={state === 'off'}
-            />
+            <Overlay centers={[ownLight, ...otherLights]} isDark={state === 'off'} />
             <Switch state={state} onChange={setState} />
-            <div className={'absolute bottom-5 right-40'}>
+            <div className={'absolute flex flex-row justify-center bottom-5'}>
                 <input
                     className={clsx(
-                        'w-24 border-2 px-2 py-1 text-sm outline-0 rounded-full bg-white',
-                        // state === 'on' ? 'bg-white' : 'bg-black',
+                        'w-32 rounded-t-sm border-b-black     border-b-2 text-center px-2 py-1 text-sm outline-0 bg-white shadow-xl',
                     )}
                     value={self.state.name}
-                    style={{ borderColor: self.state.color, color: self.state.color }}
                     onChange={(ev) => {
                         setPresenceState((state) => ({
                             ...state,
-                            name: ev.target.value,
+                            name: ev.target.value.toUpperCase(),
                         }));
                     }}
                 />
