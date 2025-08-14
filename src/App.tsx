@@ -67,7 +67,16 @@ function App() {
             className={clsx(
                 'cursor-none select-none fixed touch-none top-0 left-0 w-screen h-screen bg-white flex items-center justify-center',
             )}>
-            <Overlay centers={[ownLight, ...otherLights]} isDark={state === 'off'} />
+            <Overlay
+                centers={[
+                    {
+                        ...ownLight,
+                        name: 'You',
+                    },
+                    ...otherLights,
+                ]}
+                isDark={state === 'off'}
+            />
             <Switch state={state} onChange={setState} />
             <div className={'absolute bottom-5 right-40'}>
                 <input
